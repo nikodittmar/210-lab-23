@@ -1,3 +1,4 @@
+// COMSC 210 | Lab 23 | Niko Dittmar
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -12,6 +13,7 @@ void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string names[], string colors[]);
 void display_trip(list<Goat> trip);
 int main_menu();
+int prompt_user(int max, int min); 
 
 int main() {
     srand(time(0));
@@ -36,6 +38,10 @@ int main() {
         if (choice == 1) {
             add_goat(trip, names, colors);
         } else if (choice == 2) {
+            if (trip.size() == 0) {
+                cout << "There are no goats to delete!" << endl << endl;
+                continue;
+            }
             delete_goat(trip);
         } else if (choice == 3) {
             display_trip(trip);
@@ -46,40 +52,49 @@ int main() {
     return 0;
 }
 
+// prompt_user() gets an int from the user in the specified range.
+// arguments: max - the maximum value allowed, min - the minimum value allowed.
+// returns: the int the user inputted.
+int prompt_user(int max, int min) {
+    cout << "Choice --> ";
+    int choice;
+    cin >> choice;
+    while (choice > max || choice < min) {
+        cout << "Invalid choice! Please try again --> ";
+        cin.clear();
+        cin.ignore();
+        cin >> choice;
+    }
+    return choice;
+} 
+
+// main_menu() presents the main menu to the user. Prompts the user to select an action.
+// arguments: none.
+// returns: the option the user selected.
 int main_menu() {
     cout << "*** GOAT MANAGER 3001 ***" << endl;
     cout << "[1] Add a goat" << endl;
     cout << "[2] Delete a goat" << endl;
     cout << "[3] List goats" << endl;
     cout << "[4] Quit" << endl;
-    cout << "Choice --> ";
-    int choice;
-    cin >> choice;
-    while (choice > 4 || choice < 1) {
-        cout << "Invalid choice! Please try again --> ";
-        cin >> choice;
-    }
+    int choice = prompt_user(4, 1);
+    cout << endl;
     return choice;
 }
 
+// select_goat() prompts the user to select a goat in the trip.
+// arguments: trip - the trip to select a goat from.
+// returns: the index of the selected goat (1 indexed).
 int select_goat(list<Goat> trip) {
     display_trip(trip);
-    cout << "Please select a goat --> ";
-    int choice;
-    cin >> choice;
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore();
-        cout << "Invalid input! Please try again.";
-        return select_goat(trip);
-    }
-    if (choice > trip.size() || choice < 1) {
-        cout << "Invalid choice! Please try again.";
-        return select_goat(trip);
-    }
+    int choice = prompt_user(trip.size(), 1);
+    cout << endl;
     return choice;
 }
 
+// delete_goat() prompts the user to delete a goat in the trip.
+// arguments: trip - the trip to delete a goat from.
+// returns: none.
 void delete_goat(list<Goat> &trip) {
     cout << "Delete goat:" << endl;
     int selection = select_goat(trip);
@@ -89,6 +104,9 @@ void delete_goat(list<Goat> &trip) {
     cout << "The goat has now been deleted, the trip is now of size " << trip.size() << "." << endl << endl;
 }
 
+// add_goat() prompts the user to add a goat to the trip.
+// arguments: trip - the trip to add a goat to, names - set of names to pick randomly from, colors - set of colors to pick randomly from.
+// returns: none.
 void add_goat(list<Goat> &trip, string names[], string colors[]) {
     int nameIndex = rand() % SZ_NAMES;
     int colorIndex = rand() % SZ_COLORS;
@@ -99,6 +117,9 @@ void add_goat(list<Goat> &trip, string names[], string colors[]) {
     cout << "The trip is now of size " << trip.size() << "." << endl << endl;
 }
 
+// display_trip() outputs the contents of the trip to the console.
+// arguments: trip - the trip to output.
+// returns: none.
 void display_trip(list<Goat> trip) {
     if (trip.size() == 0) {
         cout << endl << "-- There are no goats to display --" << endl << endl;
