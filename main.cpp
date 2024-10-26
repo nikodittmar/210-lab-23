@@ -51,3 +51,10 @@ int main_menu() {
     return choice;
 }
 
+void display_trip(list<Goat> trip) {
+    int count = 1;
+    for (Goat goat : trip) {
+        cout << "[" << count << "] " << goat.get_name() << " (" << goat.get_age() << ", " << goat.get_color() << ")" << endl;
+        count++;
+    }
+}
