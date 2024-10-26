@@ -45,10 +45,26 @@ int main_menu() {
     int choice;
     cin >> choice;
     while (choice > 4 || choice < 1) {
-        cout << "Invalid choice! Please try again -->";
+        cout << "Invalid choice! Please try again --> ";
         cin >> choice;
     }
     return choice;
+}
+
+int select_goat(list<Goat> trip) {
+    display_trip(trip);
+    cout << "Please select a goat --> " << endl;
+    int choice;
+    cin >> choice;
+    while (choice > trip.size() || choice < 1) {
+        cout << "Invalid choice! Please try again --> ";
+        cin >> choice;
+    }
+    return choice;
+}
+
+void delete_goat(list<Goat> &trip) {
+    cout << "Delete goat:" << endl;
 }
 
 void add_goat(list<Goat> &trip, string names[], string colors[]) {
@@ -60,7 +76,6 @@ void add_goat(list<Goat> &trip, string names[], string colors[]) {
     cout << goat.get_name() << " (" << goat.get_age() << ", " << goat.get_color() << ") has been added to the trip!" << endl;
     cout << "The trip is now of size " << trip.size() << "." << endl;
 }
-
 
 void display_trip(list<Goat> trip) {
     int count = 1;
