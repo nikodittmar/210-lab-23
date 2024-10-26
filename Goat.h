@@ -38,6 +38,9 @@ public:
     string get_color() const        { return color; }
 
     // write overloaded < operator for the std::list
+    bool operator<(const Goat &o) const {
+        return name < o.name;
+    }
 };
 
 #endif
