@@ -35,3 +35,19 @@ int main() {
     return 0;
 }
 
+int main_menu() {
+    cout << "*** GOAT MANAGER 3001 ***" << endl;
+    cout << "[1] Add a goat" << endl;
+    cout << "[2] Delete a goat" << endl;
+    cout << "[3] List goats" << endl;
+    cout << "[4] Quit" << endl;
+    cout << "Choice --> ";
+    int choice;
+    cin >> choice;
+    while (choice > 4 || choice < 1) {
+        cout << "Invalid choice! Please try again -->";
+        cin >> choice;
+    }
+    return choice;
+}
+
