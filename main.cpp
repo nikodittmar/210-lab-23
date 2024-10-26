@@ -65,6 +65,11 @@ int select_goat(list<Goat> trip) {
 
 void delete_goat(list<Goat> &trip) {
     cout << "Delete goat:" << endl;
+    int selection = select_goat(trip);
+    list<Goat>::iterator iter;
+    advance(iter, selection - 1);
+    trip.erase(iter);
+    cout << "The goat has now been deleted, the trip is now of size " << trip.size() << "." << endl;
 }
 
 void add_goat(list<Goat> &trip, string names[], string colors[]) {
