@@ -1,4 +1,4 @@
-// COMSC 210 | Lab 23 | Niko Dittmar
+// COMSC 210 | Lab 24 | Niko Dittmar
 #include <iostream>
 #include <fstream>
 #include <iomanip>
