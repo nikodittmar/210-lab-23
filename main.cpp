@@ -29,8 +29,19 @@ int main() {
     while (fin1 >> colors[i++]);
     fin1.close();
 
+    int choice = main_menu();
+    list<Goat> trip;
 
-
+    while (choice != 4) {
+        if (choice == 1) {
+            add_goat(trip, names, colors);
+        } else if (choice == 2) {
+            delete_goat(trip);
+        } else if (choice == 3) {
+            display_trip(trip);
+        }
+        choice = main_menu();
+    }
 
     return 0;
 }
@@ -69,7 +80,7 @@ void delete_goat(list<Goat> &trip) {
     list<Goat>::iterator iter;
     advance(iter, selection - 1);
     trip.erase(iter);
-    cout << "The goat has now been deleted, the trip is now of size " << trip.size() << "." << endl;
+    cout << "The goat has now been deleted, the trip is now of size " << trip.size() << "." << endl << endl;
 }
 
 void add_goat(list<Goat> &trip, string names[], string colors[]) {
@@ -79,10 +90,14 @@ void add_goat(list<Goat> &trip, string names[], string colors[]) {
     Goat goat(names[nameIndex], age, colors[colorIndex]);
     trip.push_back(goat);
     cout << goat.get_name() << " (" << goat.get_age() << ", " << goat.get_color() << ") has been added to the trip!" << endl;
-    cout << "The trip is now of size " << trip.size() << "." << endl;
+    cout << "The trip is now of size " << trip.size() << "." << endl << endl;
 }
 
 void display_trip(list<Goat> trip) {
+    if (trip.size() == 0) {
+        cout << endl << "-- There are no goats to display --" << endl << endl;
+    }
+
     int count = 1;
     for (Goat goat : trip) {
         cout << "[" << count << "] " << goat.get_name() << " (" << goat.get_age() << ", " << goat.get_color() << ")" << endl;
